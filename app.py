@@ -14,10 +14,8 @@ def about():
 es = Elasticsearch()
 
 def search_for(address):
-  print "search_for"
-  results = es.search(index="addresses", body= {"query": {"query_string": {"default_field": "ADDRESS", "query": address.replace("/", " ")}}})
-  print results
-  return results["hits"]
+  results = es.search(index="addresses", body={"query": {"query_string": {"default_field": "ADDRESS", "query": address.replace("/", " ")}}})
+  return results['hits']
 
 def format_parcel(match):
   return {
@@ -36,7 +34,6 @@ def format_parcel(match):
   }
 
 def likely_parcels(query = '123 Main St'):
-  print "likely_parcels"
   hits = search_for(query)
   response = {
     "type": "FeatureCollection",
@@ -51,8 +48,8 @@ def likely_parcels(query = '123 Main St'):
 
 @app.route('/geocode')
 def geocode():
-  print "geocode"
-  return likely_parcels(request.args['query'])
+  query = request.args['query']
+  return jsonify(likely_parcels(query))
 
 if __name__ == ('__main__'):
   app.run()
