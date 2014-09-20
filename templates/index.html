@@ -10,22 +10,20 @@
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Lexington Address Service</h1>
-      </div>
-      <div class="container">
-        <div id="map"></div>
+  <div id="map">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-5">
+        <div id="intro">
+          <h1>Streetscope</h1>
+          <p><strong>How many different ways can you type your address?</strong> City agencies in Lexington sometimes disagree on the correct way to reference a single address or taxlot. (And sometimes someone entering data just makes a typo. Oops!) That makes it really hard to get a complete picture of a single property.<br><br><strong>Streetscope</strong> allows different databases to know they're talking about the same address, even if it's not spelled exactly the same. It's mostly for computers, but people can use it too! It was built based on data provided by the Fayette County PVA. <span><a href="/about">Learn more</a></span></p>
+        </div>
+        <div id="the-basics">
+          <input class="typeahead form-control" type="text" placeholder="Try it! Enter an address">
+        </div>
       </div>
     </div>
-
-    <div class="container">
-        <div id="the-basics">
-          <input class="typeahead form-control" type="text" placeholder="type an address">
-        </div>
-    </div> <!-- /container -->
+  </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
