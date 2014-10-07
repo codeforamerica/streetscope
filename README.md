@@ -67,27 +67,31 @@ The json result can be previewed through the [HTML UI](http://lexington-geocoder
 In your command line, run the following:
 
 ```
-$ git clone https://github.com/codeforamerica/lexington-geocoder.git
-$ cd lexington-geocoder
-$ cp .env.sample .env
-$ gem install bundler
-$ bundle install
+$ git clone https://github.com/codeforamerica/lexington-geocoder-flask.git
+$ cd lexington-geocoder-flask
+$ mkdir venv
+$ virtualenv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+```
 
 # make sure postgres is running, then:
 $ createdb lexington_geocoder
 $ csvsql --db postgresql:///lexington_geocoder --insert --table parcels data/ParcelCentroids.csv
 
 # make sure elasticsearch is running then:
-$ ruby index_addresses.rb
+$ python index_addresses.py
 $ ... takes a few minutes
-$ bundle exec rackup
+$ python app.py
 ```
+
+Application should be running on localhost:5000
 
 ### Test it out
 
 * If you have access to the 'curl' command
 
-`$ curl http://localhost:9292/geocode?query=449+w+4th` ... should return some json!
+`$ curl http://localhost:5000/geocode?query=449+w+4th` ... should return some json!
 
-* [Ajax example](https://github.com/codeforamerica/lexington-geocoder/blob/2b6326565643be0264b17b4b2af27f47887ac225/views/index.erb#L55) in javascript
+* [Ajax example from Ruby/Sinatra version of Streetscope](https://github.com/codeforamerica/lexington-geocoder/blob/2b6326565643be0264b17b4b2af27f47887ac225/views/index.erb#L55) in javascript (soon to be replaced with Flask/Python example)
 
