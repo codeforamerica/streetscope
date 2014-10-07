@@ -23,3 +23,36 @@ Lexingteam!
 * [Livien Yin](https://github.com/livienyin)
 
 With completely indispensable help from Jonathan Hollinger and Shaye Rabold at [Lexington-Fayette Urban County Government](http://lexingtonky.gov/) and David O'Neill, the [Property Valuation Administrator](http://www.fayette-pva.com/)
+
+### How to use it?
+
+(This section remains from lexington-geocoder)
+
+When programming, make an HTTP GET request to `http://lexington-geocoder.herokuapp.com/geocode?query=449+w+4th`
+
+The geoJSON response:
+
+```
+{
+"type": "FeatureCollection",
+   "features": [
+       {
+          "type": "Feature",
+          "geometry": {
+            "type": "Point",
+            "coordinates": [
+              -84.4949386945456,
+              38.055285154852555
+            ]
+          },
+          "properties": {
+              "formatted_address": "449 W FOURTH ST",
+              "parcel_id": "15602150"
+          }
+       },
+       ... { more features }
+   ]
+},
+```
+
+The json result can be previewed through the [HTML UI](http://lexington-geocoder.herokuapp.com/). ![HTML UI](https://raw.githubusercontent.com/codeforamerica/lexington-geocoder/master/screenshots/streetscope.png)
