@@ -73,7 +73,6 @@ $ mkdir venv
 $ virtualenv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
-```
 
 # make sure postgres is running, then:
 $ createdb lexington_geocoder
