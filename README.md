@@ -86,6 +86,12 @@ $ python app.py
 
 Application should be running on localhost:5000
 
+### Deploy
+
+To deploy to heroku, run the following:
+
+$
+
 ### Test it out
 
 * If you have access to the 'curl' command
