@@ -2,7 +2,7 @@ import csv
 import re
 from elasticsearch import Elasticsearch
 
-es = Elasticsearch()
+es = Elasticsearch({'host': ELASTICSEARCH_URL})
 
 with open('data/ParcelCentroids.csv', 'r') as csvfile:
   print "open file"
