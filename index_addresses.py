@@ -1,9 +1,15 @@
 import csv
 import re
 import os
-from elasticsearch import Elasticsearch, RequestsHttpConnection
+from urlparse import urlparse
+from elasticsearch import Elasticsearch
 
-es = Elasticsearch([{'host': os.environ['ELASTICSEARCH_HOST']}], http_auth= os.environ['ELASTICSEARCH_AUTH'])
+url = urlparse(os.environ['BONSAI_URL'])
+bonsai_tuple = url.netloc.partition('@')
+ELASTICSEARCH_HOST = bonsai_tuple[2]
+ELASTICSEARCH_AUTH = bonsai_tuple[0]
+
+es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
 
 with open('data/ParcelCentroids.csv', 'r') as csvfile:
   print "open file"

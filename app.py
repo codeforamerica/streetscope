@@ -1,6 +1,8 @@
 import json
+import os
 from flask import Flask, render_template, jsonify, request
 from elasticsearch import Elasticsearch
+from urlparse import urlparse
 app = Flask(__name__)
 
 @app.route('/')
@@ -11,7 +13,12 @@ def search_page():
 def about():
   return render_template('about.html')
 
-es = Elasticsearch([{'host': os.environ['ELASTICSEARCH_HOST']}], http_auth= os.environ['ELASTICSEARCH_AUTH'])
+url = urlparse(os.environ['BONSAI_URL'])
+bonsai_tuple = url.netloc.partition('@')
+ELASTICSEARCH_HOST = bonsai_tuple[2]
+ELASTICSEARCH_AUTH = bonsai_tuple[0]
+
+es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
 
 def search_for(address):
   results = es.search(index="addresses", body={"query": {"query_string": {"default_field": "ADDRESS", "query": address.replace("/", " ")}}})
