@@ -23,7 +23,6 @@ with open('data/ParcelCentroids.csv', 'r') as csvfile:
       continue
     address = row
     if re.match('\d+', address['PVANUM']):
-      print address['PVANUM']
       es.index(index='addresses', doc_type='address', id=address['PVANUM'], body={'PVANUM': address['PVANUM'], 'NUM1': address['NUM1'], 'NAME': address['NAME'], 'TYPE': address['TYPE'], 'ADDRESS': address['ADDRESS'], 'UNIT': address['UNIT'], 'X': address['X'], 'Y': address['Y']})
 
 csvfile.close()
