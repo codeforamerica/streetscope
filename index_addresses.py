@@ -1,7 +1,7 @@
 import csv
 import re
 import os
-from elasticsearch import Elasticsearch, RequestsHttpConnection
+from elasticsearch import Elasticsearch, RequestsHttpConnection, Urllib3HttpConnection
 
 es = Elasticsearch({u'host': os.environ['ELASTICSEARCH_URL']}, transport_class=Urllib3HttpConnection)
 
