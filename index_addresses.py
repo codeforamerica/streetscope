@@ -3,7 +3,7 @@ import re
 import os
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 
-es = Elasticsearch({u'host': os.environ['ELASTICSEARCH_URL']}, transport_class=RequestsHttpConnection)
+es = Elasticsearch({u'host': os.environ['ELASTICSEARCH_URL']}, transport_class=RequestsHttpConnection, use_ssl=True)
 
 with open('data/ParcelCentroids.csv', 'r') as csvfile:
   print "open file"
