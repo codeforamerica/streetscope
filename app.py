@@ -11,7 +11,7 @@ def search_page():
 def about():
   return render_template('about.html')
 
-es = Elasticsearch()
+es = Elasticsearch([{'host': os.environ['ELASTICSEARCH_HOST']}], http_auth= os.environ['ELASTICSEARCH_AUTH'])
 
 def search_for(address):
   results = es.search(index="addresses", body={"query": {"query_string": {"default_field": "ADDRESS", "query": address.replace("/", " ")}}})
