@@ -11,6 +11,7 @@ with open('data/ParcelCentroids.csv', 'r') as csvfile:
 
   current_row = 0
   for row in csv_reader:
+    print "looping"
     current_row += 1
     if current_row == 1:
       csv_reader.fieldnames = row['undefined-fieldnames']
