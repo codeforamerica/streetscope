@@ -70,33 +70,28 @@ def geocode_batch():
   geocoded = {}
   if input_file is not False:
     csv_reader = csv.DictReader(input_file)
-    temp_csv = open('tmp.csv', 'w')
-    csv_writer = csv.writer(temp_csv)
-
     all_rows = []
 
     for index, row in enumerate(csv_reader):
-        ordered_row = OrderedDict()
-        for fieldname in csv_reader.fieldnames:
-            ordered_row[fieldname] = row[fieldname]
-        address = row['ADDRESS']
+      ordered_row = OrderedDict()
+      for fieldname in csv_reader.fieldnames:
+        ordered_row[fieldname] = row[fieldname]
+      address = row['ADDRESS']
 
-        results = search_for(address)
-        if results['total'] != 0:
-          result = results['hits'][0]
+      results = search_for(address)
+      if results['total'] != 0:
+        result = results['hits'][0]
 
-          ordered_row['X'] = result['_source']['X']
-          ordered_row['Y'] = result['_source']['Y']
+        ordered_row['X'] = result['_source']['X']
+        ordered_row['Y'] = result['_source']['Y']
 
-        all_rows.append(ordered_row)
+      all_rows.append(ordered_row)
 
     def generate():
-        output_headers = True
-        for row in all_rows:
-            if(output_headers):
-                yield ','.join(row.keys()) + '\n'
-                output_headers = False
-            yield ','.join(row.values()) + '\n'
+      for index, row in enumerate(all_rows):
+        if index == 0: # for the first row make headers
+          yield ','.join(row.keys()) + '\n'
+        yield ','.join(row.values()) + '\n'
 
     return Response(generate(), mimetype='text/csv')
   else:
