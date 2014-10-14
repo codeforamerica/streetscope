@@ -72,30 +72,31 @@ def geocode_batch():
     csv_reader = csv.DictReader(input_file)
     temp_csv = open('tmp.csv', 'w')
     csv_writer = csv.writer(temp_csv)
-    next(csv_reader, None) # skip headers
-    outsideRows = OrderedDict
 
-    outsideRows.append(csv_reader[0])
+    all_rows = []
 
     for index, row in enumerate(csv_reader):
-        ordered_row = ['%s' % (row[fieldname]) for fieldname in csv_reader.fieldnames]
-        print 'geocoding number %s' % index
+        ordered_row = OrderedDict()
+        for fieldname in csv_reader.fieldnames:
+            ordered_row[fieldname] = row[fieldname]
         address = row['ADDRESS']
-
-        print 'address: %s' % address
 
         results = search_for(address)
         if results['total'] != 0:
           result = results['hits'][0]
 
-          ordered_row.append(result['_source']['X'])
-          ordered_row.append(result['_source']['Y'])
+          ordered_row['X'] = result['_source']['X']
+          ordered_row['Y'] = result['_source']['Y']
 
-        outsideRows.append(ordered_row)
+        all_rows.append(ordered_row)
 
     def generate():
-      for row in outsideRows:
-        yield ','.join(row) + '\n'
+        output_headers = True
+        for row in all_rows:
+            if(output_headers):
+                yield ','.join(row.keys()) + '\n'
+                output_headers = False
+            yield ','.join(row.values()) + '\n'
 
     return Response(generate(), mimetype='text/csv')
   else:
