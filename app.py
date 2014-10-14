@@ -93,7 +93,9 @@ def geocode_batch():
           yield ','.join(row.keys()) + '\n'
         yield ','.join(row.values()) + '\n'
 
-    return Response(generate(), mimetype='text/csv')
+    input_filename = input_file.filename.split('.')[0]
+    return Response(generate(), mimetype='text/csv',
+      headers = {'Content-Disposition': 'attachment; filename=%s-geocoded.csv' % input_filename})
   else:
     return 'attach file', 400
 

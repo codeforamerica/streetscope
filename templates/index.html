@@ -21,6 +21,12 @@
         <div id="the-basics">
           <input class="typeahead form-control" type="text" placeholder="Try it! Enter an address">
         </div>
+
+        <h3>Batch geocode!</h3>
+        <form enctype="multipart/form-data" action="/geocode_batch" method="POST">
+          <input type="file" name="query">
+          <input type="submit">
+        </form>
       </div>
     </div>
   </div>
