@@ -4,12 +4,14 @@ import os
 from urlparse import urlparse
 from elasticsearch import Elasticsearch
 
-url = urlparse(os.environ['BONSAI_URL'])
-bonsai_tuple = url.netloc.partition('@')
-ELASTICSEARCH_HOST = bonsai_tuple[2]
-ELASTICSEARCH_AUTH = bonsai_tuple[0]
-
-es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
+if os.environ.get('BONSAI_URL'):
+  url = urlparse(os.environ['BONSAI_URL'])
+  bonsai_tuple = url.netloc.partition('@')
+  ELASTICSEARCH_HOST = bonsai_tuple[2]
+  ELASTICSEARCH_AUTH = bonsai_tuple[0]
+  es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
+else:
+  es = Elasticsearch()
 
 with open('data/ParcelCentroids.csv', 'r') as csvfile:
   print "open file"

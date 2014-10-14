@@ -13,12 +13,14 @@ def search_page():
 def about():
   return render_template('about.html')
 
-url = urlparse(os.environ['BONSAI_URL'])
-bonsai_tuple = url.netloc.partition('@')
-ELASTICSEARCH_HOST = bonsai_tuple[2]
-ELASTICSEARCH_AUTH = bonsai_tuple[0]
-
-es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
+if os.environ.get('BONSAI_URL'):
+  url = urlparse(os.environ['BONSAI_URL'])
+  bonsai_tuple = url.netloc.partition('@')
+  ELASTICSEARCH_HOST = bonsai_tuple[2]
+  ELASTICSEARCH_AUTH = bonsai_tuple[0]
+  es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
+else:
+  es = Elasticsearch()
 
 def search_for(address):
   results = es.search(index="addresses", body={"query": {"query_string": {"default_field": "ADDRESS", "query": address.replace("/", " ")}}})
