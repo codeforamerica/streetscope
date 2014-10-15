@@ -76,6 +76,7 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
+```
 # make sure elasticsearch is running then:
 $ python index_addresses.py
 $ ... takes a few minutes
