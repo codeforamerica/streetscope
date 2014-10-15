@@ -35,10 +35,7 @@ def about():
 
 def record_geocode_request(query, returned, es_score, es_lat, es_long):
   if RECORD_REQUESTS == True:
-    values_sql = "'%s', '%s', %s, %s, %s,NULL,NULL,NULL,NOW(),NULL" % (query, returned, es_score, es_lat, es_long)
-    record_request_sql = "INSERT INTO geocoder VALUES (%s)" % values_sql
-    print 'record sql: %s' % record_request_sql
-    db.run(record_request_sql)
+    db.run("INSERT INTO geocoder VALUES (%s, %s, %s, %s, %s, NULL, NULL, NULL, NOW(), NULL)", (query, returned, es_score, es_lat, es_long))
   else:
     pass
 
