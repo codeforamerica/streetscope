@@ -3,13 +3,13 @@ import os
 
 from postgres import Postgres
 
-POSTGRES_URL = os.environ.get('POSTGRES_URL')
+POSTGRES_URL = os.environ.get('DATABASE_URL')
 
 db = Postgres(POSTGRES_URL)
 
 columns = OrderedDict()
-columns['QUERY_ADDRESS'] = 'varchar 255'
-columns['RETURNED_ADDRESS'] = 'varchar 255'
+columns['QUERY_ADDRESS'] = 'varchar(255)'
+columns['RETURNED_ADDRESS'] = 'varchar(255)'
 columns['ES_SCORE'] = 'float8'
 columns['ES_LAT'] = 'float8'
 columns['ES_LONG'] = 'float8'
