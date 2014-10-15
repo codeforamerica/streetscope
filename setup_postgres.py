@@ -3,7 +3,7 @@ import os
 
 from postgres import Postgres
 
-POSTGRES_URL = os.environ.get('POSTGRES_URL', 'postgres://JeremiaKimelman@localhost/')
+POSTGRES_URL = os.environ.get('POSTGRES_URL')
 
 db = Postgres(POSTGRES_URL)
 

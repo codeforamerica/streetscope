@@ -8,7 +8,7 @@ from flask import Flask, render_template, jsonify, request, Response
 from elasticsearch import Elasticsearch
 
 RECORD_REQUESTS = os.environ.get('RECORD_REQUESTS', True)
-POSTGRES_URL = os.environ.get('POSTGRES_URL', 'postgres://JeremiaKimelman@localhost/')
+POSTGRES_URL = os.environ.get('POSTGRES_URL')
 
 if RECORD_REQUESTS == True:
   from postgres import Postgres
