@@ -8,7 +8,7 @@ from flask import Flask, render_template, jsonify, request, Response
 from elasticsearch import Elasticsearch
 
 RECORD_REQUESTS = os.environ.get('RECORD_REQUESTS', True)
-POSTGRES_URL = os.environ.get('POSTGRES_URL')
+POSTGRES_URL = os.environ.get('DATABASE_URL')
 
 if RECORD_REQUESTS == True:
   from postgres import Postgres
@@ -35,8 +35,9 @@ def about():
 
 def record_geocode_request(query, returned, es_score, es_lat, es_long):
   if RECORD_REQUESTS == True:
-    values_sql = "'%s', '%s', %s, %s, %s" % (query, returned, es_score, es_lat, es_long)
+    values_sql = "'%s', '%s', %s, %s, %s,NULL,NULL,NULL,NOW(),NULL" % (query, returned, es_score, es_lat, es_long)
     record_request_sql = "INSERT INTO geocoder VALUES (%s)" % values_sql
+    print 'record sql: %s' % record_request_sql
     db.run(record_request_sql)
   else:
     pass
