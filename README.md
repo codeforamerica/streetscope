@@ -75,13 +75,14 @@ $ virtualenv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
 
-# make sure elasticsearch is running then:
+# make sure elasticsearch is running, then:
+
 $ python index_addresses.py
 $ ... takes a few minutes
 $ python app.py
 ```
 
-Application should be running on localhost:5000
+Application should be running on localhost:5000.
 
 ### Deploy to Heroku
 
