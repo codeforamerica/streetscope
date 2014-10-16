@@ -76,8 +76,7 @@ def format_parcel(match):
       ]
     },
     "properties": {
-      "formatted_address": match['ADDRESS'],
-      "parcel_id": match['PVANUM']
+      "formatted_address": match['ADDRESS']
     }
   }
 
