@@ -2,12 +2,14 @@ from collections import OrderedDict
 import csv
 import json
 import os
-from urlparse import urlparse
-
 from flask import Flask, render_template, jsonify, request, Response
 from elasticsearch import Elasticsearch
+from urlparse import urlparse
 
-RECORD_REQUESTS = os.environ.get('RECORD_REQUESTS', True)
+app = Flask(__name__)
+
+RECORD_REQUESTS = os.environ.get('RECORD_REQUESTS')
+POSTGRES_URL = os.environ.get('DATABASE_URL')
 POSTGRES_URL = os.environ.get('DATABASE_URL')
 
 if RECORD_REQUESTS == True:
@@ -120,9 +122,11 @@ def geocode_batch():
           yield ','.join(row.keys()) + '\n'
         yield ','.join(row.values()) + '\n'
 
-    return Response(generate(), mimetype='text/csv', filename='')
+    input_filename = input_file.filename.split('.')[0]
+    return Response(generate(), mimetype='text/csv',
+      headers = {'Content-Disposition': 'attachment; filename=%s-geocoded.csv' % input_filename})
   else:
     return 'attach file', 400
 
 if __name__ == ('__main__'):
-  app.run(debug=True)
+  app.run(debug=os.environ.get('DEBUG'))
