@@ -84,9 +84,16 @@ $ python app.py
 
 Application should be running on localhost:5000.
 
+### Test it out locally
+
+* If you have access to the 'curl' command
+
+`$ curl http://localhost:5000/geocode?query=449+w+4th` ... should return some json!
+
 ### Deploy to Heroku
 
 In your command line, run the following:
+
 ```
 $ heroku create
 $ git push heroku master
@@ -98,8 +105,23 @@ $ ... takes a few minutes
 $ heroku open
 ```
 
-### Test it out
+### Enable request logging in Postgres for geocoding quality analysis
 
-* If you have access to the 'curl' command
+```
+psql -c 'CREATE DATABASE geocoder'
+```
 
-`$ curl http://localhost:5000/geocode?query=449+w+4th` ... should return some json!
+Set the following environment vars
+
+```
+RECORD_REQUESTS=true
+DATABASE_URL=postgres://postgres@localhost/geocoder
+```
+
+run
+
+```
+python setup_postgres.py
+```
+
+Now geocoding requests will get logged to postgres along with a quality score from elasticsearch. In the future we'll grab the lowest quality scores, compare them to another geocoder and figure out how to tune the elasticsearch query to improve results.
