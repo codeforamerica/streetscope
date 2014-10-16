@@ -8,8 +8,14 @@ from urlparse import urlparse
 
 app = Flask(__name__)
 
-RECORD_REQUESTS = os.environ.get('RECORD_REQUESTS')
-POSTGRES_URL = os.environ.get('DATABASE_URL')
+def get_flag(key):
+  value = os.environ.get(key, '')
+  if value.lower() == 'true':
+    return True
+  else:
+    return False
+
+RECORD_REQUESTS = get_flag('RECORD_REQUESTS')
 POSTGRES_URL = os.environ.get('DATABASE_URL')
 
 if RECORD_REQUESTS == True:
@@ -129,4 +135,4 @@ def geocode_batch():
     return 'attach file', 400
 
 if __name__ == ('__main__'):
-  app.run(debug=os.environ.get('DEBUG'))
+  app.run(debug=get_flag('DEBUG'))
