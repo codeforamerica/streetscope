@@ -16,7 +16,7 @@ else:
 
 files_given = sys.argv
 for file_name in files_given:
-  if file_name = 'index_addresses.py':
+  if file_name == 'index_addresses.py':
     continue
   else:
     file_path = file_name
