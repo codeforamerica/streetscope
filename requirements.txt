@@ -5,6 +5,8 @@ Werkzeug==0.9.6
 elasticsearch==1.2.0
 gunicorn==19.1.1
 itsdangerous==0.24
+postgres==2.1.2
+psycopg2==2.5.4
+requests==2.4.3
 urllib3==1.9
 wsgiref==0.1.2
-requests==2.4.3

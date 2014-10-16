@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streetscope</title>
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="https://api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.css" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div id="about-wrapper" class="container">
+    <div class="row">
+      <div class="col-md-offset-2 col-md-8">
+        <div class="pull-right"><a href="/"><h4>Back to Home</h4></a></div>
+        <h1>About Streetscope</h1>
+        <section id="why">
+          <h2>Why are we doing this?</h2>
+          <p>Because LFUCG (Lexington's government) has many datasets that contain addresses that are captured as '449 W. Fourth St.' in one database and '435 W 4th St.' in another. This service lets you look them up and find their precise parcel id, despite spelling variations.</p>
+        </section>
+
+        <section id="how">
+          <h2>How to use it?</h2>
+          <p>When programming, make an HTTP GET request to <a href="http://streetscope.net/geocode?query=449+w+4th" target="_blank">http://lexington-geocoder.herokuapp.com/geocode?query=449+w+4th</a>. See more on <a href="https://github.com/codeforamerica/lexington-geocoder-flask" target="_blank">Github</a></p>
+          <p>The geoJSON response:</p>
+          <img src="/static/images/geoJSON.png" width="100%"/>
+          <p>The json result can be previewed through the <a href="/" target="_blank">HTML web page.</a></p>
+          <img src="/static/images/JSON.png" width="100%"/>
+        </section>
+
+        <section id="future">
+          <h2>What's on the horizon?</h2>
+          <ul>
+            <li>Accept files to geocode as a batch</li>
+            <li>Emit performance metrics to indicate when this geocoder varies from other geocoders in geographic distance or ability to match an address</li>
+            <li>Generalize for any city that has a reliable address dataset</li>
+          </ul>
+        </section>
+
+        <section id="who">
+          <h2>Who is this made by?</h2>
+          <p>Made with love by the 2014 Code for America fellows working with Lexington, KY. With completely indispensable help from Jonathan Hollinger and Shaye Rabold at <a href="http://lexingtonky.gov/" target="_blank">Lexington-Fayette Urban County Government</a> and David O'Neill, <a href="http://www.fayette-pva.com/" target="_blank">the Property Valuation Administrator.</a></p>
+          <p>Contact the fellows with questions and feedback!</p>
+          <ul>
+            <li><a href="mailto:lexington@codeforamerica.org" target="_top">Erik Schwartz, software engineer</a></li>
+            <li><a href="mailto:lexington@codeforamerica.org" target="_top">Lyzi Diamond, GIS analyst</a></li>
+            <li><a href="mailto:lexington@codeforamerica.org" target="_top">Livien Yin, visual designer</a></li>
+          </ul>
+        </section>
+
+        <footer>
+          <img src="/static/images/footer-logos.png" width="200" alt="City and County Seals">
+          Created by <a href="http://codeforamerica.org/">Code for America</a> and <a href="http://www.lexingtonky.gov/index.aspx">Lexington-Fayette Urban County Government</a>
+          &bull; Source code on <a href="https://github.com/codeforamerica/lexington-geocoder">Github</a>
+        </footer>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
