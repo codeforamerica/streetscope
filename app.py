@@ -2,14 +2,15 @@ from collections import OrderedDict
 import csv
 import json
 import os
+from urlparse import urlparse
+
 from flask import Flask, render_template, jsonify, request, Response
 from elasticsearch import Elasticsearch
-from urlparse import urlparse
+import usaddress
 
 app = Flask(__name__)
 
 RECORD_REQUESTS = os.environ.get('RECORD_REQUESTS')
-POSTGRES_URL = os.environ.get('DATABASE_URL')
 POSTGRES_URL = os.environ.get('DATABASE_URL')
 
 if RECORD_REQUESTS == True:
@@ -35,6 +36,13 @@ def search_page():
 def about():
   return render_template('about.html')
 
+def address_well_formed(address):
+  address_parts = []
+  for part in usaddress.parse(address):
+    address_parts.append(part[1])
+
+  return 'StreetName' in address_parts and 'AddressNumber' in address_parts
+
 def record_geocode_request(query, returned, es_score, es_lat, es_long):
   if RECORD_REQUESTS == True:
     db.run("INSERT INTO geocoder VALUES (%s, %s, %s, %s, %s, NULL, NULL, NULL, NOW(), NULL)", (query, returned, es_score, es_lat, es_long))
@@ -42,22 +50,25 @@ def record_geocode_request(query, returned, es_score, es_lat, es_long):
     pass
 
 def search_for(address):
-  results = es.search(index="addresses", body={"query": {"query_string": {"default_field": "ADDRESS", "query": address.replace("/", " ")}}})
-  if results['hits']['total'] != 0:
-    hit = results['hits']['hits'][0]
-    returned = hit['_source']['ADDRESS']
-    es_score = hit['_score']
-    es_lat = hit['_source']['X']
-    es_long = hit['_source']['Y']
+  if address_well_formed(address):
+    results = es.search(index="addresses", body={"query": {"query_string": {"default_field": "ADDRESS", "query": address.replace("/", " ")}}})
+    if results['hits']['total'] != 0:
+      hit = results['hits']['hits'][0]
+      returned = hit['_source']['ADDRESS']
+      es_score = hit['_score']
+      es_lat = hit['_source']['X']
+      es_long = hit['_source']['Y']
+    else:
+      returned = 'NULL'
+      es_score = 'NULL'
+      es_lat = 'NULL'
+      es_long = 'NULL'
+
+    record_geocode_request(address, returned, es_score, es_lat, es_long)
+
+    return results['hits']
   else:
-    returned = 'NULL'
-    es_score = 'NULL'
-    es_lat = 'NULL'
-    es_long = 'NULL'
-
-  record_geocode_request(address, returned, es_score, es_lat, es_long)
-
-  return results['hits']
+    return False
 
 def format_parcel(match):
   return {
@@ -77,20 +88,24 @@ def format_parcel(match):
 
 def likely_parcels(query = '123 Main St'):
   hits = search_for(query)
-  response = {
-    "type": "FeatureCollection",
-    "features": []
-  }
-  if hits["total"] == 0:
+  if hits:
+    response = {
+      "type": "FeatureCollection",
+      "features": []
+    }
+    if hits["total"] == 0:
+      return response
+    for hit in hits['hits']:
+      match = hit['_source']
+      response['features'].append(format_parcel(match))
     return response
-  for hit in hits['hits']:
-    match = hit['_source']
-    response['features'].append(format_parcel(match))
-  return response
+  else:
+    return {'error_message': 'Please ensure that the address has a street number and street name'}
 
 @app.route('/geocode')
 def geocode():
   query = request.args['query']
+
   return jsonify(likely_parcels(query))
 
 @app.route('/geocode_batch', methods=['POST'])
@@ -108,7 +123,7 @@ def geocode_batch():
       address = row['ADDRESS']
 
       results = search_for(address)
-      if results['total'] != 0:
+      if results and results['total'] != 0:
         result = results['hits'][0]
 
         ordered_row['X'] = result['_source']['X']
