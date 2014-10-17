@@ -77,9 +77,10 @@ $ pip install -r requirements.txt
 
 # make sure elasticsearch is running, then:
 
+$ mv sample.env .env
 $ python index_addresses.py
 $ ... takes a few minutes
-$ python app.py
+$ honcho start
 ```
 
 Application should be running on localhost:5000.
@@ -111,10 +112,10 @@ $ heroku open
 psql -c 'CREATE DATABASE geocoder'
 ```
 
-Set the following environment vars
+Set the following environment vars in your `.env` file
 
 ```
-RECORD_REQUESTS=true
+RECORD_REQUESTS=True
 DATABASE_URL=postgres://postgres@localhost/geocoder
 ```
 
