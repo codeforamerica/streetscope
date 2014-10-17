@@ -77,7 +77,12 @@ $ pip install -r requirements.txt
 # make sure elasticsearch is running, then:
 
 $ mv sample.env .env
-$ python index_addresses.py
+```
+
+Note where your OpenAddresses CSVs live on your computer. You can load more than one CSV into the geocoder at a time. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names, so there may end up being duplicates in your dataset if you use more than one CSV.
+
+```
+$ python index_addresses.py path/to/csv.csv path/to/another_csv.csv
 $ ... takes a few minutes
 $ honcho start
 ```
@@ -92,7 +97,7 @@ Application should be running on localhost:5000.
 
 ### Deploy to Heroku
 
-In your command line, run the following:
+Make sure to save your CSVs in the root of the project. Then, in your command line, run the following:
 
 ```
 $ heroku create
@@ -100,7 +105,7 @@ $ git push heroku master
 $ heroku addons:add bonsai
 $ bonsai=`heroku config:get BONSAI_URL`
 $ curl -XPUT "$bonsai/addresses/"
-$ heroku run python index_addresses.py
+$ heroku run python index_addresses.py filename1.csv filename2.csv
 $ ... takes a few minutes
 $ heroku open
 ```
