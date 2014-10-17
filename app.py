@@ -36,14 +36,15 @@ def search_page():
 def about():
   return render_template('about.html')
 
-def address_well_formed(address):
+def address_parts(address):
   address_parts = []
   for part in usaddress.parse(address):
-    try:
-      address_parts.append(part[1])
-    except:
-      pass
+    address_parts.append(part[1])
 
+  return address_parts
+
+def address_well_formed(address=''):
+  address_parts = address_parts(address)
   well_formed = 'StreetName' in address_parts and 'AddressNumber' in address_parts
 
   return {
