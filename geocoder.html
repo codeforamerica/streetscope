@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streetscope</title>
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="https://api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.css" rel="stylesheet" />
+  <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div id="map"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-5">
+        <div id="intro">
+          <div id="logo"><img src="/static/images/streetscope-logo.png" width="50%"/></div>
+          <p><strong>How many different ways can you type your address?</strong> City agencies in Lexington sometimes disagree on the correct way to reference a single address or taxlot. (And sometimes someone entering data just makes a typo. Oops!) That makes it really hard to get a complete picture of a single property.<br><br><strong>Streetscope</strong> allows different databases to know they're talking about the same address, even if it's not spelled exactly the same. It's mostly for computers, but people can use it too! It was built based on data provided by the Fayette County PVA. <span><a href="/about">Learn more</a></span></p>
+        </div>
+        <div id="the-basics">
+          <input class="typeahead form-control" type="text" placeholder="Try it! Enter an address">
+        </div>
+
+        <h3>Batch geocode!</h3>
+        <h4>Submit a CSV file with a column named 'ADDRESS'</h4>
+        <form enctype="multipart/form-data" action="/geocode_batch" method="POST">
+          <input type="file" name="query">
+          <input type="submit">
+        </form>
+      </div>
+    </div>
+    <div class="row" style="vertical-align:bottom">
+      <div class="col-md-offset-5">
+        <p>©2014 <a href="http://codeforamerica.org">Code for America</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.js"></script>
+  <script type="text/javascript" src="/static/js/typeahead.bundle.js"></script>
+  <script type="text/javascript" src="/static/js/map.js"></script>
+  <script type="text/javascript">
+$(function() {
+  var map = MapBuilder.init('map');
+  $('#the-basics .typeahead').typeahead({
+    hint: true,
+    highlight: true,
+    minLength: 3
+  },
+  {
+    name: 'query',
+    displayKey: 'value',
+    source: function(query, process) {
+    return $.get('/geocode', { query: query }, function (geojson) {
+        map.addToMap(geojson);
+        var matches = [];
+        geojson.features.forEach(function(feature) {
+          matches.push({ value: JSON.stringify(feature) });
+        });
+        return process(matches);
+      });
+    },
+  });
+});
+  </script>
+</body>
+</html>
