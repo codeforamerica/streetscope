@@ -51,8 +51,8 @@ def address_parts(address):
   return address_parts
 
 def address_well_formed(address=''):
-  address_parts = address_parts(address)
-  well_formed = 'StreetName' in address_parts and 'AddressNumber' in address_parts
+  parts = address_parts(address)
+  well_formed = 'StreetName' in parts and 'AddressNumber' in parts
 
   return {
     'address': address,
@@ -166,4 +166,4 @@ def geocode_batch():
     return 'attach file', 400
 
 if __name__ == ('__main__'):
-  app.run(debug=get_flag('DEBUG'))
+  app.run(debug=True)
