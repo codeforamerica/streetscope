@@ -107,7 +107,7 @@ $ heroku open
 ### Enable request logging in Postgres for geocoding quality analysis
 
 ```
-psql -c 'CREATE DATABASE geocoder'
+$ psql -c 'CREATE DATABASE geocoder'
 ```
 
 Set the following environment vars in your `.env` file
@@ -120,7 +120,7 @@ DATABASE_URL=postgres://postgres@localhost/geocoder
 run
 
 ```
-python setup_postgres.py
+$ python setup_postgres.py
 ```
 
 Now geocoding requests will get logged to postgres along with a quality score from elasticsearch. In the future we'll grab the lowest quality scores, compare them to another geocoder and figure out how to tune the elasticsearch query to improve results.
