@@ -28,9 +28,7 @@ and with completely indispensable help from Jonathan Hollinger and Shaye Rabold 
 
 ### How to use it?
 
-(This section remains from lexington-geocoder)
-
-When programming, make an HTTP GET request to `http://lexington-geocoder.herokuapp.com/geocode?query=449+w+4th`
+When programming, make an HTTP GET request to `http://lexington-geocoder-flask.herokuapp.com/geocode?query=449+w+4th`
 
 The geoJSON response:
 
@@ -57,7 +55,7 @@ The geoJSON response:
 },
 ```
 
-The json result can be previewed through the [HTML UI](http://lexington-geocoder.herokuapp.com/). ![HTML UI](https://raw.githubusercontent.com/codeforamerica/lexington-geocoder/master/screenshots/streetscope.png)
+The json result can be previewed through the [HTML UI](http://streetscope.net). ![HTML UI](https://raw.githubusercontent.com/codeforamerica/lexington-geocoder/master/screenshots/streetscope.png)
 
 ### Setup
 
