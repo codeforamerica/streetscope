@@ -28,9 +28,8 @@ and with completely indispensable help from Jonathan Hollinger and Shaye Rabold 
 
 ### How to use it?
 
-(This section remains from lexington-geocoder)
-
-When programming, make an HTTP GET request to `http://streetscope.net/geocode?query=449+w+4th`
+<<<<<<< HEAD
+When programming, make an HTTP GET request to `http://lexington-geocoder-flask.herokuapp.com/geocode?query=449+w+4th`
 
 The geoJSON response:
 
@@ -108,7 +107,7 @@ $ heroku open
 ### Enable request logging in Postgres for geocoding quality analysis
 
 ```
-psql -c 'CREATE DATABASE geocoder'
+$ psql -c 'CREATE DATABASE geocoder'
 ```
 
 Set the following environment vars in your `.env` file
@@ -121,7 +120,7 @@ DATABASE_URL=postgres://postgres@localhost/geocoder
 run
 
 ```
-python setup_postgres.py
+$ python setup_postgres.py
 ```
 
 Now geocoding requests will get logged to postgres along with a quality score from elasticsearch. In the future we'll grab the lowest quality scores, compare them to another geocoder and figure out how to tune the elasticsearch query to improve results.
