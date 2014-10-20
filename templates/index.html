@@ -22,11 +22,17 @@
           <input class="typeahead form-control" type="text" placeholder="Try it! Enter an address">
         </div>
 
-        <h3>Batch geocode! Submit a CSV file with a column named 'ADDRESS'</h3>
+        <h3>Batch geocode!</h3>
+        <h4>Submit a CSV file with a column named 'ADDRESS'</h4>
         <form enctype="multipart/form-data" action="/geocode_batch" method="POST">
           <input type="file" name="query">
           <input type="submit">
         </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-offset-5">
+        <p>©2014 <a href="http://codeforamerica.org">Code for America</a></p>
       </div>
     </div>
   </div>

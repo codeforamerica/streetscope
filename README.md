@@ -28,6 +28,7 @@ and with completely indispensable help from Jonathan Hollinger and Shaye Rabold 
 
 ### How to use it?
 
+<<<<<<< HEAD
 When programming, make an HTTP GET request to `http://lexington-geocoder-flask.herokuapp.com/geocode?query=449+w+4th`
 
 The geoJSON response:
@@ -55,13 +56,12 @@ The geoJSON response:
 },
 ```
 
-The json result can be previewed through the [HTML UI](http://streetscope.net). ![HTML UI](https://raw.githubusercontent.com/codeforamerica/lexington-geocoder/master/screenshots/streetscope.png)
+The json result can be previewed through the [HTML UI](http://streetscope.net/). ![HTML UI](https://raw.githubusercontent.com/codeforamerica/lexington-geocoder/master/screenshots/streetscope.png)
 
 ### Setup
 
 * [Install Elasticsearch](http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/_installing_elasticsearch.html) or for osx homebrew users `brew install elasticsearch`
 * [Install Python and Virtualenv](https://github.com/codeforamerica/howto/blob/master/Python-Virtualenv.md)
-* [Install csvkit](https://github.com/amandabee/cunyjdata/wiki/Tutorial:-Installing-CSVKit)
 
 In your command line, run the following:
 
