@@ -1,12 +1,12 @@
-# Streetscope (Flask version)
+# Streetscope (OpenAddresses version)
 
-Streetscope is a service to allow people, but especially computer programs, to submit an address like '123 Main St.' and find its lat/lon coordinates and canonical parcel_id in the Lexington, KY Property Value Administrator's set of addresses.
+Streetscope is a service to allow people, but especially computer programs, to submit an address like '123 Main St.' and find its lat/lon coordinates. This version is meant to take an [OpenAddresses](http://github.com/openaddresses) CSV and use it to create a geocoder. This idea came from [@daguar](http://github.com/daguar) and [@lyzidiamond](http://github.com/lyzidiamond) while hiking. Go on more hikes.
+
+The original version was created for the City of Lexington, KY using parcel data from the Fayette County Property Valuation Administrator. You can see it live [here](http://streetscope.net).
 
 ### Why are we doing this?
 
-City agencies in Lexington sometimes disagree on the correct way to reference a single address or taxlot. (And sometimes someone entering data just makes a typo. Oops!) That makes it really hard to get a complete picture of a single property.
-
-Streetscope allows different databases to know they're talking about the same address, even if it's not spelled exactly the same. It returns a geographic location and a parcel ID for matching addresses across databases to enable connections between these datasets and get a true picture of the city.
+Part of the value of the OpenAddresses project is the ability to create a geocoder with the addresses collected. Streetscope makes geocoders from given datasets. Together, everybody wins!
 
 ### What will this do in the future?
 
@@ -22,9 +22,7 @@ Lexingteam!
 * [Lyzi Diamond](https://github.com/lyzidiamond)
 * [Livien Yin](https://github.com/livienyin)
 
-with Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak)
-
-and with completely indispensable help from Jonathan Hollinger and Shaye Rabold at [Lexington-Fayette Urban County Government](http://lexingtonky.gov/) and David O'Neill, the [Property Valuation Administrator](http://www.fayette-pva.com/).
+with Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak).
 
 ### How to use it?
 
@@ -68,6 +66,7 @@ In your command line, run the following:
 ```
 $ git clone https://github.com/codeforamerica/lexington-geocoder-flask.git
 $ cd lexington-geocoder-flask
+$ git checkout openaddresses
 $ mkdir venv
 $ virtualenv venv
 $ source venv/bin/activate
@@ -76,7 +75,12 @@ $ pip install -r requirements.txt
 # make sure elasticsearch is running, then:
 
 $ mv sample.env .env
-$ python index_addresses.py
+```
+
+Note where your OpenAddresses CSVs live on your computer. You can load more than one CSV into the geocoder at a time. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names, so there may end up being duplicates in your dataset if you use more than one CSV.
+
+```
+$ python index_addresses.py path/to/csv.csv path/to/another_csv.csv
 $ ... takes a few minutes
 $ honcho start
 ```
@@ -91,7 +95,7 @@ Application should be running on localhost:5000.
 
 ### Deploy to Heroku
 
-In your command line, run the following:
+Make sure to save your CSVs in the root of the project. Then, in your command line, run the following:
 
 ```
 $ heroku create
@@ -99,7 +103,7 @@ $ git push heroku master
 $ heroku addons:add bonsai
 $ bonsai=`heroku config:get BONSAI_URL`
 $ curl -XPUT "$bonsai/addresses/"
-$ heroku run python index_addresses.py
+$ heroku run python index_addresses.py filename1.csv filename2.csv
 $ ... takes a few minutes
 $ heroku open
 ```

@@ -1,3 +1,4 @@
+import sys
 import csv
 import re
 import os
@@ -13,18 +14,27 @@ if os.environ.get('BONSAI_URL'):
 else:
   es = Elasticsearch()
 
-with open('data/ParcelCentroids.csv', 'r') as csvfile:
-  print "open file"
-  csv_reader = csv.DictReader(csvfile, fieldnames=[], restkey='undefined-fieldnames', delimiter=',')
+files_given = sys.argv
+for file_name in files_given:
+  if file_name == 'index_addresses.py':
+    continue
+  else:
+    file_path = file_name
+    print 'adding ' + file_path
 
-  current_row = 0
-  for row in csv_reader:
-    current_row += 1
-    if current_row == 1:
-      csv_reader.fieldnames = row['undefined-fieldnames']
-      continue
-    address = row
-    if re.match('\d+', address['PVANUM']):
-      es.index(index='addresses', doc_type='address', id=address['PVANUM'], body={'PVANUM': address['PVANUM'], 'NUM1': address['NUM1'], 'NAME': address['NAME'], 'TYPE': address['TYPE'], 'ADDRESS': address['ADDRESS'], 'UNIT': address['UNIT'], 'X': address['X'], 'Y': address['Y']})
+    with open(file_path, 'r') as csvfile:
+      print "open file"
+      csv_reader = csv.DictReader(csvfile, fieldnames=[], restkey='undefined-fieldnames', delimiter=',')
 
-csvfile.close()
+      current_row = 0
+      for row in csv_reader:
+        current_row += 1
+        if current_row == 1:
+          csv_reader.fieldnames = row['undefined-fieldnames']
+          continue
+        address = row
+        if current_row % 10000 = 0:
+          print current_row " addresses indexed"
+        es.index(index='addresses', doc_type='address', id=current_row-1, body={'NUMBER': address[' NUMBER'], 'STREET': address[' STREET'], 'ADDRESS': address[' NUMBER'] + ' ' + address[' STREET'], 'X': address['LON'], 'Y': address[' LAT']})
+
+    csvfile.close()
