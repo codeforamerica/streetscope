@@ -7,9 +7,8 @@ from elasticsearch import Elasticsearch
 
 if os.environ.get('BONSAI_URL'):
   url = urlparse(os.environ['BONSAI_URL'])
-  bonsai_tuple = url.netloc.partition('@')
-  ELASTICSEARCH_HOST = bonsai_tuple[2]
-  ELASTICSEARCH_AUTH = bonsai_tuple[0]
+  ELASTICSEARCH_HOST = url.hostname
+  ELASTICSEARCH_AUTH = url.username + ':' + url.password
   es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
 else:
   es = Elasticsearch()
