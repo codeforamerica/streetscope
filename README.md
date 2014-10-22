@@ -26,7 +26,6 @@ with Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak).
 
 ### How to use it?
 
-<<<<<<< HEAD
 When programming, make an HTTP GET request to `http://lexington-geocoder-flask.herokuapp.com/geocode?query=449+w+4th`
 
 The geoJSON response:
