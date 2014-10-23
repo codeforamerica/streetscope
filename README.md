@@ -82,7 +82,14 @@ $ ... takes a few minutes
 $ heroku open
 ```
 
-### Enable request logging in Postgres for geocoding quality analysis
+### Enable request logging in PostgreSQL for geocoding quality analysis (optional)
+
+This project includes a QA/QC element by enabling request logging for geocoding quality analysis. It requires setting up a PostgreSQL instance to keep track of the geocodes. This is **optional:** You do not need to do this for Streetscope to run successfully.
+
+* [Install PostgreSQL](https://github.com/codeforamerica/howto/blob/master/PostgreSQL.md)
+* Make sure PostgreSQL is running
+
+In your command line, run the following:
 
 ```
 $ psql -c 'CREATE DATABASE geocoder'
@@ -95,10 +102,10 @@ RECORD_REQUESTS=True
 DATABASE_URL=postgres://postgres@localhost/geocoder
 ```
 
-run
+In the command line, run the following:
 
 ```
 $ python setup_postgres.py
 ```
 
-Now geocoding requests will get logged to postgres along with a quality score from elasticsearch. In the future we'll grab the lowest quality scores, compare them to another geocoder and figure out how to tune the elasticsearch query to improve results.
+Now geocoding requests will get logged to your PostgreSQL database along with a quality score from Elasticsearch. In the future, we'll grab the lowest quality scores, compare them to another geocoder, and figure out how to tune the Elasticsearch query to improve results.
