@@ -29,7 +29,7 @@ Lexingteam!
 * [Install Elasticsearch](http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/_installing_elasticsearch.html) or for osx homebrew users `brew install elasticsearch`
 * [Install Python and Virtualenv](https://github.com/codeforamerica/howto/blob/master/Python-Virtualenv.md)
 
-In your command line, run the following:
+In your command line, run the following (the lines after $ are commands and the lines after # are comments):
 
 ```
 $ git clone https://github.com/codeforamerica/streetscope.git
