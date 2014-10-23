@@ -77,7 +77,7 @@ $ git push heroku master
 $ heroku addons:add bonsai
 $ bonsai=`heroku config:get BONSAI_URL`
 $ curl -XPUT "$bonsai/addresses/"
-$ heroku run python index_addresses.py filename1.csv filename2.csv
+$ heroku run python index_addresses.py open-addresses-csv.csv
 $ ... takes a few minutes
 $ heroku open
 ```
