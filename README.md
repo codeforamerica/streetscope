@@ -26,7 +26,11 @@ with Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak).
 
 ### How to use it (for Lexington, KY the project's partner city)?
 
+<<<<<<< HEAD
 When programming, make an HTTP GET request to `http://streetscope.net/geocode?query=449+w+4th`
+=======
+When programming, make an HTTP GET request to `http://lexington-geocoder-flask.herokuapp.com/geocode?query=449+w+4th`
+>>>>>>> 48c4680... merge conflicts ;)
 
 The geoJSON response:
 
