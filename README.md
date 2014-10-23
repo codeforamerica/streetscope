@@ -79,11 +79,14 @@ $ cp sample.env .env
 $ curl -XPUT "localhost:9300/addresses/"
 ```
 
-Note where your OpenAddresses CSV(s) lives on your computer. You can index more than one CSV into the geocoder at a time. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names, so there may end up being duplicates in your dataset if you use more than one CSV.
+Note where the proccess OpenAddresses CSV lives on your computer. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names so the results for `123 main street` are implicitly within the indexed area.
 
 ```
-$ python index_addresses.py path/to/csv.csv path/to/another_csv.csv
+$ python index_addresses.py path/to/open-addresses-csv.csv
 $ ... takes a few minutes
+
+# start the flask app
+
 $ honcho start
 ```
 
@@ -97,7 +100,7 @@ Application should be running on localhost:5000.
 
 ### Deploy to Heroku
 
-Make sure to save your CSVs in the root of the project. Then, in your command line, run the following:
+Make sure to save your OpenAddresses CSV in the root of the project. Then, in your command line, run the following:
 
 ```
 $ heroku create
