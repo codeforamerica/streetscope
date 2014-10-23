@@ -24,10 +24,9 @@ Lexingteam!
 
 with Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak).
 
-### How to use it?
+### How to use it (for Lexington, KY the project's partner city)?
 
-<<<<<<< HEAD
-When programming, make an HTTP GET request to `http://lexington-geocoder-flask.herokuapp.com/geocode?query=449+w+4th`
+When programming, make an HTTP GET request to `http://streetscope.net/geocode?query=449+w+4th`
 
 The geoJSON response:
 
@@ -64,9 +63,8 @@ The json result can be previewed through the [HTML UI](http://streetscope.net/).
 In your command line, run the following:
 
 ```
-$ git clone https://github.com/codeforamerica/lexington-geocoder-flask.git
-$ cd lexington-geocoder-flask
-$ git checkout openaddresses
+$ git clone https://github.com/codeforamerica/streetscope.git
+$ cd streetscope
 $ mkdir venv
 $ virtualenv venv
 $ source venv/bin/activate
@@ -74,10 +72,14 @@ $ pip install -r requirements.txt
 
 # make sure elasticsearch is running, then:
 
-$ mv sample.env .env
+$ cp sample.env .env
+
+# create elasticsearch index on local elasticsearch instance
+
+$ curl -XPUT "localhost:9300/addresses/"
 ```
 
-Note where your OpenAddresses CSVs live on your computer. You can load more than one CSV into the geocoder at a time. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names, so there may end up being duplicates in your dataset if you use more than one CSV.
+Note where your OpenAddresses CSV(s) lives on your computer. You can index more than one CSV into the geocoder at a time. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names, so there may end up being duplicates in your dataset if you use more than one CSV.
 
 ```
 $ python index_addresses.py path/to/csv.csv path/to/another_csv.csv
