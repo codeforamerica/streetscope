@@ -22,42 +22,7 @@ Lexingteam!
 * [Lyzi Diamond](https://github.com/lyzidiamond)
 * [Livien Yin](https://github.com/livienyin)
 
-with Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak).
-
-### How to use it (for Lexington, KY the project's partner city)?
-
-<<<<<<< HEAD
-When programming, make an HTTP GET request to `http://streetscope.net/geocode?query=449+w+4th`
-=======
-When programming, make an HTTP GET request to `http://lexington-geocoder-flask.herokuapp.com/geocode?query=449+w+4th`
->>>>>>> 48c4680... merge conflicts ;)
-
-The geoJSON response:
-
-```
-{
-"type": "FeatureCollection",
-   "features": [
-       {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [
-              -84.4949386945456,
-              38.055285154852555
-            ]
-          },
-          "properties": {
-              "formatted_address": "449 W FOURTH ST",
-              "parcel_id": "15602150"
-          }
-       },
-       ... { more features }
-   ]
-},
-```
-
-The json result can be previewed through the [HTML UI](http://streetscope.net/). ![HTML UI](https://raw.githubusercontent.com/codeforamerica/lexington-geocoder/master/screenshots/streetscope.png)
+* plus Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak).
 
 ### Setup
 
