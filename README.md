@@ -22,50 +22,18 @@ Lexingteam!
 * [Lyzi Diamond](https://github.com/lyzidiamond)
 * [Livien Yin](https://github.com/livienyin)
 
-with Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak).
-
-### How to use it?
-
-When programming, make an HTTP GET request to `http://lexington-geocoder-flask.herokuapp.com/geocode?query=449+w+4th`
-
-The geoJSON response:
-
-```
-{
-"type": "FeatureCollection",
-   "features": [
-       {
-          "type": "Feature",
-          "geometry": {
-            "type": "Point",
-            "coordinates": [
-              -84.4949386945456,
-              38.055285154852555
-            ]
-          },
-          "properties": {
-              "formatted_address": "449 W FOURTH ST",
-              "parcel_id": "15602150"
-          }
-       },
-       ... { more features }
-   ]
-},
-```
-
-The json result can be previewed through the [HTML UI](http://streetscope.net/). ![HTML UI](https://raw.githubusercontent.com/codeforamerica/lexington-geocoder/master/screenshots/streetscope.png)
+* plus Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak).
 
 ### Setup
 
 * [Install Elasticsearch](http://www.elasticsearch.org/guide/en/elasticsearch/guide/current/_installing_elasticsearch.html) or for osx homebrew users `brew install elasticsearch`
 * [Install Python and Virtualenv](https://github.com/codeforamerica/howto/blob/master/Python-Virtualenv.md)
 
-In your command line, run the following:
+In your command line, run the following (the lines after $ are commands and the lines after # are comments):
 
 ```
-$ git clone https://github.com/codeforamerica/lexington-geocoder-flask.git
-$ cd lexington-geocoder-flask
-$ git checkout openaddresses
+$ git clone https://github.com/codeforamerica/streetscope.git
+$ cd streetscope
 $ mkdir venv
 $ virtualenv venv
 $ source venv/bin/activate
@@ -73,14 +41,21 @@ $ pip install -r requirements.txt
 
 # make sure elasticsearch is running, then:
 
-$ mv sample.env .env
+$ cp sample.env .env
+
+# create elasticsearch index on local elasticsearch instance
+
+$ curl -XPUT "localhost:9300/addresses/"
 ```
 
-Note where your OpenAddresses CSVs live on your computer. You can load more than one CSV into the geocoder at a time. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names, so there may end up being duplicates in your dataset if you use more than one CSV.
+Note where the proccess OpenAddresses CSV lives on your computer. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names so the results for `123 main street` are implicitly within the indexed area.
 
 ```
-$ python index_addresses.py path/to/csv.csv path/to/another_csv.csv
+$ python index_addresses.py path/to/open-addresses-csv.csv
 $ ... takes a few minutes
+
+# start the flask app
+
 $ honcho start
 ```
 
@@ -94,7 +69,7 @@ Application should be running on localhost:5000.
 
 ### Deploy to Heroku
 
-Make sure to save your CSVs in the root of the project. Then, in your command line, run the following:
+Make sure to save your OpenAddresses CSV in the root of the project. Then, in your command line, run the following:
 
 ```
 $ heroku create
@@ -102,12 +77,19 @@ $ git push heroku master
 $ heroku addons:add bonsai
 $ bonsai=`heroku config:get BONSAI_URL`
 $ curl -XPUT "$bonsai/addresses/"
-$ heroku run python index_addresses.py filename1.csv filename2.csv
+$ heroku run python index_addresses.py open-addresses-csv.csv
 $ ... takes a few minutes
 $ heroku open
 ```
 
-### Enable request logging in Postgres for geocoding quality analysis
+### Enable request logging in PostgreSQL for geocoding quality analysis (optional)
+
+This project includes a QA/QC element by enabling request logging for geocoding quality analysis. It requires setting up a PostgreSQL instance to keep track of the geocodes. This is **optional:** You do not need to do this for Streetscope to run successfully.
+
+* [Install PostgreSQL](https://github.com/codeforamerica/howto/blob/master/PostgreSQL.md)
+* Make sure PostgreSQL is running
+
+In your command line, run the following:
 
 ```
 $ psql -c 'CREATE DATABASE geocoder'
@@ -120,10 +102,10 @@ RECORD_REQUESTS=True
 DATABASE_URL=postgres://postgres@localhost/geocoder
 ```
 
-run
+In the command line, run the following:
 
 ```
 $ python setup_postgres.py
 ```
 
-Now geocoding requests will get logged to postgres along with a quality score from elasticsearch. In the future we'll grab the lowest quality scores, compare them to another geocoder and figure out how to tune the elasticsearch query to improve results.
+Now geocoding requests will get logged to your PostgreSQL database along with a quality score from Elasticsearch. In the future, we'll grab the lowest quality scores, compare them to another geocoder, and figure out how to tune the Elasticsearch query to improve results.
