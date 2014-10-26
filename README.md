@@ -21,7 +21,6 @@ Lexingteam!
 * [Erik Schwartz](https://github.com/eeeschwartz)
 * [Lyzi Diamond](https://github.com/lyzidiamond)
 * [Livien Yin](https://github.com/livienyin)
-
 * plus Chattanooga fellow [Jeremia Kimelman](https://github.com/jeremiak).
 
 ### Setup
