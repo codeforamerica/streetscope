@@ -45,7 +45,7 @@ $ cp sample.env .env
 
 # create elasticsearch index on local elasticsearch instance
 
-$ curl -XPUT "localhost:9300/addresses/"
+$ curl -XPUT "localhost:9200/addresses/"
 ```
 
 Note where the proccess OpenAddresses CSV lives on your computer. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names so the results for `123 main street` are implicitly within the indexed area.
