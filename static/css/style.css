@@ -38,11 +38,9 @@ strong {
   width: 40%;
 }
 
-#intro {
+#logo {
+  display: inline-block;
   padding-top: 50px;
-}
-
-#intro #logo {
   padding-bottom: 40px;
 }
 
@@ -56,16 +54,20 @@ strong {
   margin-bottom: 30px;
 }
 
-#intro .link a{
+#intro .link a, footer a, #who a {
   font-weight: 500;
   color: #27AF84;
+}
+
+form {
+  margin-bottom: 50px;
 }
 
 .submit-btn, .upload-btn {
   text-transform: lowercase;
   color: #fff;
-  background-color: #FF553F;
-  border: 5px solid #FF553F;
+  background-color: #3ca0d3;
+  border: 5px solid #3ca0d3;
   text-align: center;
   border-radius: 10px;
   padding: 7px;
@@ -77,8 +79,8 @@ strong {
 
 .submit-btn:hover{
   background-color: #fff;
-  border: 5px solid #FF553F;
-  color: #FF553F;
+  border: 5px solid #3ca0d3;
+  color: #3ca0d3;
   font-weight: 600;
 }
 
@@ -87,8 +89,16 @@ strong {
 }
 
 .upload-btn {
+  cursor: pointer;
   background-color: #27AF84;
   border: 5px solid #27AF84;
+}
+
+.upload-btn:hover{
+  background-color: #fff;
+  border: 5px solid #27AF84;
+  color: #27AF84;
+  font-weight: 600;
 }
 
 .fileUpload {
@@ -111,13 +121,8 @@ strong {
 }
 
 footer {
-  margin-top: 40px;
-  padding: 30px 0;
+  padding: 40px 0;
   border-top: 2px solid #dedede;
-}
-
-footer a {
-  font-weight: 500;
 }
 
 /*About Page*/
@@ -129,14 +134,17 @@ footer a {
   max-width: 1000px;
 }
 
-#about-wrapper h1, #about-wrapper h2, #about-wrapper h3, #about-wrapper h4 {
+#about-wrapper h2 {
   text-transform: uppercase;
-  font-size: 1.8em;
+  font-size: 1.6em;
 }
 
 #about-wrapper section {
-  padding-bottom: 60px;
   padding-top: 50px;
+}
+
+#navigation #logo {
+  padding: 0;
 }
 
 #navigation, #what {
@@ -157,6 +165,10 @@ footer a {
   padding-right: 2px;
 }
 
+#what, #how, #who {
+  padding-bottom: 60px;
+}
+
 #what p {
   font-size: 1.1em;
 }
@@ -169,7 +181,7 @@ footer a {
   padding-left: 10px;
 }
 
-#why {
+#why, #how {
   background-color: #EDF6F2;
 }
 
@@ -177,7 +189,7 @@ footer a {
   padding-top: 15px;
 }
 
-#how h2 {
+#how h2, #who h2 {
   padding-bottom: 15px;
 }
 
