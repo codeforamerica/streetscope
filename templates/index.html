@@ -16,14 +16,17 @@
       <div class="col-md-offset-5">
         <div id="intro">
           <div id="logo"><img src="/static/images/streetscope-logo.png" width="50%"/></div>
-          <p><strong>How many different ways can you type your address?</strong> City agencies in Lexington sometimes disagree on the correct way to reference a single address or taxlot. (And sometimes someone entering data just makes a typo. Oops!) That makes it really hard to get a complete picture of a single property.<br><br><strong>Streetscope</strong> allows different databases to know they're talking about the same address, even if it's not spelled exactly the same. It's mostly for computers, but people can use it too! It was built based on data provided by the Fayette County PVA. <span><a href="/about">Learn more</a></span></p>
+          <p><strong>Geocoding is hard.</strong> Geocoders as they exist now are expensive, slow, inefficient, or inaccurate. This is largely because of the <em>data</em> that is available to create these geocoders. But what if there was an easy way to create a geocoder with open data?</p>
+          <p>Enter <strong>Streetscope</strong>. Streetscope is an application that creates a geocoder from <a href='http://openaddresses.io'>OpenAddresses</a> data. This tool can be used for any city or county, so long as its data is in OpenAddresses!</p>
+          <p>If you're interested in setting this up for your city or county, read the instructions on <a href='http://github.com/codeforamerica/streetscope'>GitHub</a>. If you want to use Streetscope but your data isn't in OpenAddresses, click <a href='http://openaddresses.io'>here</a>.</p>
+          <p>This project was created by 2014 Code for America Fellows <a href='http://twitter.com/livienyin'>Livien Yin</a>, <a href='http://twitter.com/eeeschwartz'>Erik Schwartz</a>, <a href='http://twitter.com/lyzidiamond'>Lyzi Diamond</a>, and <a href='http://twitter.com/jeremiak'>Jeremia Kimelman</a>.</p>
         </div>
         <div id="the-basics">
-          <input class="typeahead form-control" type="text" placeholder="Try it! Enter an address">
+          <input class="typeahead form-control" type="text" placeholder="Try it! Enter an address in San Francisco.">
         </div>
 
         <h3>Batch geocode!</h3>
-        <h4>Submit a CSV file with a column named 'ADDRESS'</h4>
+        <h4>Submit a CSV file of addresses in San Francisco with a column named 'ADDRESS'</h4>
         <form enctype="multipart/form-data" action="/geocode_batch" method="POST">
           <input type="file" name="query">
           <input type="submit">
