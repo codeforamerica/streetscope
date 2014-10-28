@@ -10,7 +10,7 @@
 
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="https://api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.css" rel="stylesheet" />
-  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
+  <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <div id="map"></div>
@@ -21,7 +21,7 @@
           <div id="logo"><img src="/static/images/streetscope-logo.png" width="50%"/></div>
           <p><strong>Geocoding is hard.</strong> Geocoders as they exist now are expensive, slow, inefficient, or inaccurate. This is largely because of the <em>data</em> that is available to create these geocoders. But what if there was an easy way to create a geocoder with open data?</p>
           <p>Enter <strong>Streetscope</strong>. Streetscope is an application that creates a geocoder from <a href='http://openaddresses.io'>OpenAddresses</a> data. This tool can be used for any city or county, so long as its data is in OpenAddresses!</p>
-          <p>If you're interested in setting this up for your city or county, read the instructions on <a href='http://github.com/codeforamerica/streetscope'>GitHub</a>. If you want to use Streetscope but your data isn't in <strong>OpenAddresses</strong>, click <a href='http://openaddresses.io'>here</a>.</p>
+          <p>If you're interested in setting this up for your city or county, read the instructions on <a href='http://github.com/codeforamerica/streetscope'>GitHub</a>. If you want to use Streetscope but your data isn't in OpenAddresses, click <a href='http://openaddresses.io'>here</a>.</p>
           <p>This project was created by 2014 Code for America Fellows <a href='http://twitter.com/livienyin'>Livien Yin</a>, <a href='http://twitter.com/eeeschwartz'>Erik Schwartz</a>, <a href='http://twitter.com/lyzidiamond'>Lyzi Diamond</a>, and <a href='http://twitter.com/jeremiak'>Jeremia Kimelman</a>.</p>
         </div>
         <div id="the-basics">
@@ -46,8 +46,8 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script src="//api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.js"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/typeahead.bundle.js') }}"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
+  <script type="text/javascript" src="/static/js/typeahead.bundle.js"></script>
+  <script type="text/javascript" src="/static/js/map.js"></script>
   <script type="text/javascript">
 $(function() {
   var map = MapBuilder.init('map');
