@@ -194,6 +194,10 @@ footer {
   border: 1px solid #CCD4D0;
 }
 
+.tt-dropdown-menu {
+  background: white;
+}
+
 /*media queries*/
 
 @media (max-width: 768px) {
@@ -207,3 +211,4 @@ footer {
     margin-top: 300px;
   }
 }
+

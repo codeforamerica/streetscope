@@ -50,8 +50,8 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script src="//api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.js"></script>
-  <script type="text/javascript" src="/static/js/typeahead.bundle.js"></script>
-  <script type="text/javascript" src="/static/js/map.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/typeahead.bundle.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
   <script type="text/javascript">
 $(function() {
   var map = MapBuilder.init('map');
