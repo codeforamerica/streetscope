@@ -5,57 +5,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Streetscope</title>
 
+  <script src="//use.typekit.net/pbs6bvg.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
+
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="https://api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.css" rel="stylesheet" />
   <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <div id="about-wrapper" class="container">
-    <div class="row">
-      <div class="col-md-offset-2 col-md-8">
-        <div class="pull-right"><a href="/"><h4>Back to Home</h4></a></div>
-        <h1>About Streetscope</h1>
-        <section id="why">
-          <h2>Why are we doing this?</h2>
-          <p>Because LFUCG (Lexington's government) has many datasets that contain addresses that are captured as '449 W. Fourth St.' in one database and '435 W 4th St.' in another. This service lets you look them up and find their precise parcel id, despite spelling variations.</p>
-        </section>
-
-        <section id="how">
-          <h2>How to use it?</h2>
-          <p>When programming, make an HTTP GET request to <a href="http://streetscope.net/geocode?query=449+w+4th" target="_blank">http://lexington-geocoder.herokuapp.com/geocode?query=449+w+4th</a>. See more on <a href="https://github.com/codeforamerica/lexington-geocoder-flask" target="_blank">Github</a></p>
-          <p>The geoJSON response:</p>
-          <img src="/static/images/geoJSON.png" width="100%"/>
-          <p>The json result can be previewed through the <a href="/" target="_blank">HTML web page.</a></p>
-          <img src="/static/images/JSON.png" width="100%"/>
-        </section>
-
-        <section id="future">
-          <h2>What's on the horizon?</h2>
-          <ul>
-            <li>Accept files to geocode as a batch</li>
-            <li>Emit performance metrics to indicate when this geocoder varies from other geocoders in geographic distance or ability to match an address</li>
-            <li>Generalize for any city that has a reliable address dataset</li>
-          </ul>
-        </section>
-
-        <section id="who">
-          <h2>Who is this made by?</h2>
-          <p>Made with love by the 2014 Code for America fellows working with Lexington, KY. With completely indispensable help from Jonathan Hollinger and Shaye Rabold at <a href="http://lexingtonky.gov/" target="_blank">Lexington-Fayette Urban County Government</a> and David O'Neill, <a href="http://www.fayette-pva.com/" target="_blank">the Property Valuation Administrator.</a></p>
-          <p>Contact the fellows with questions and feedback!</p>
-          <ul>
-            <li><a href="mailto:lexington@codeforamerica.org" target="_top">Erik Schwartz, software engineer</a></li>
-            <li><a href="mailto:lexington@codeforamerica.org" target="_top">Lyzi Diamond, GIS analyst</a></li>
-            <li><a href="mailto:lexington@codeforamerica.org" target="_top">Livien Yin, visual designer</a></li>
-          </ul>
-        </section>
-
-        <footer>
-          <img src="/static/images/footer-logos.png" width="200" alt="City and County Seals">
-          Created by <a href="http://codeforamerica.org/">Code for America</a> and <a href="http://www.lexingtonky.gov/index.aspx">Lexington-Fayette Urban County Government</a>
-          &bull; Source code on <a href="https://github.com/codeforamerica/lexington-geocoder">Github</a>
-        </footer>
+  <div id="about-wrapper">
+    <div id="navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div id="logo"><img src="/static/images/streetscope-logo-white.png" width="100%"/></div>
+          </div>
+          <div class="col-md-9">
+            <div class="pull-right">
+              <a href="/">Return to Home</a>
+              <a href="https://github.com/codeforamerica/streetscope" target="_blank"><img src="/static/images/github-icon.png" width="20px"/> Github</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <section id="what">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <img src="/static/images/123-main-st.png" width="100%"/>
+          </div>
+          <div class="col-md-6">
+            <div class="description">
+              <h2>About the project</h2>
+              <p>Streetscope is a service to allow people, but especially computer programs, to submit an address like '123 Main St.' and find its lat/lon coordinates and canonical parcel_id in the Lexington, KY Property Value Administrator's set of addresses.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <h2>Why did we build this?</h2>
+            <p>Because LFUCG (Lexington's government) has many datasets that contain addresses that are captured as '449 W. Fourth St.' in one database and '449 W 4th St.' in another. This service lets you look them up and find their precise parcel id, despite spelling variations.</p>
+          </div>
+          <div class="col-md-4">
+            <img src="/static/images/fourth-st.png" width="100%"/>
+            <img src="/static/images/4th-st.png" width="100%"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>How to use it?</h2>
+            <p>When programming, make a HTTP GET request to <a href="http://streetscope.net/geocode?query=449+w+4th" target="_blank">http://streetscope.net/geocode?query=449+w+4th</a>.</p>
+            <p>See full details on <a href="https://github.com/codeforamerica/streetscope" target="_blank">Github</a>.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5">
+            <p>The geoJSON response:</p>
+            <img src="/static/images/geoJSON.png" width="100%"/>
+          </div>
+          <div class="col-md-7">
+            <p>The json result can be previewed through the <a href="/" target="_blank">HTML web page.</a></p>
+            <img src="/static/images/JSON.png" width="100%"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="who">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h2>Who is this made by?</h2>
+            <p>Made with love by the 2014 Code for America fellows working with Lexington, KY, with completely indispensable help from Jonathan Hollinger and Shaye Rabold at <a href="http://lexingtonky.gov/" target="_blank">Lexington-Fayette Urban County Government</a>, David O'Neill, <a href="http://www.fayette-pva.com/" target="_blank">Fayette County Property Valuation Administrator</a>, and Jeremia Kimelman, 2014 Code for America Fellow working with Chattanooga, TN.</p>
+            <p>Contact the fellows with questions and feedback!</p>
+            <ul>
+              <li><a href="mailto:lexington@codeforamerica.org" target="_top">Erik Schwartz, software engineer</a></li>
+              <li><a href="mailto:lexington@codeforamerica.org" target="_top">Lyzi Diamond, GIS analyst</a></li>
+              <li><a href="mailto:lexington@codeforamerica.org" target="_top">Livien Yin, visual designer</a></li>
+              <li><a href="mailto:lexington@codeforamerica.org" target="_top">Jeremia Kimelman, Chattanoooga Fellow</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h2>What's on the horizon?</h2>
+            <ul>
+              <li>Emit performance metrics to indicate when this geocoder varies from other geocoders in geographic distance or ability to match an address</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <img src="/static/images/footer-logos.png" width="200" alt="City and County Seals">
+            Created by <a href="http://codeforamerica.org/">Code for America</a> and <a href="http://www.lexingtonky.gov/index.aspx">Lexington-Fayette Urban County Government</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </body>
 </html>

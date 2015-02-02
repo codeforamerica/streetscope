@@ -2,21 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Streetscope</title>
+
+  <script src="//use.typekit.net/pbs6bvg.js"></script>
+  <script>try{Typekit.load();}catch(e){}</script>
 
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
   <link href="https://api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.css" rel="stylesheet" />
-  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+  <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-  <div id="map"></div>
   <div class="container">
     <div class="row">
-      <div class="col-md-offset-5">
+      <div class="col-md-5 col-sm-5 col-xs-12">
+        <div id="map"></div>
+      </div>
+      <div class="col-md-7 col-sm-7" id="content-container">
+        <div id="logo"><img src="/static/images/streetscope-logo.png" width="250px"/></div>
         <div id="intro">
-          <div id="logo"><img src="/static/images/streetscope-logo.png" width="50%"/></div>
-          <p><strong>How many different ways can you type your address?</strong> City agencies in Lexington sometimes disagree on the correct way to reference a single address or taxlot. (And sometimes someone entering data just makes a typo. Oops!) That makes it really hard to get a complete picture of a single property.<br><br><strong>Streetscope</strong> allows different databases to know they're talking about the same address, even if it's not spelled exactly the same. It's mostly for computers, but people can use it too! It was built based on data provided by the Fayette County PVA. <span><a href="/about">Learn more</a></span></p>
+          <p><strong>How many different ways can you type your address?</strong> City agencies in Lexington sometimes disagree on the correct way to reference a single address or taxlot. (And sometimes someone entering data just makes a typo. Oops!) That makes it really hard to get a complete picture of a single property.<br><br><strong>Streetscope</strong> allows different databases to know they're talking about the same address, even if it's not spelled exactly the same. It's mostly for computers, but people can use it too! It was built based on data provided by the Fayette County PVA. <span class="link"><a href="/about">Learn more</a></span></p>
         </div>
         <div id="the-basics">
           <input class="typeahead form-control" type="text" placeholder="Try it! Enter an address">
@@ -25,23 +31,27 @@
         <h3>Batch geocode!</h3>
         <h4>Submit a CSV file with a column named 'ADDRESS'</h4>
         <form enctype="multipart/form-data" action="/geocode_batch" method="POST">
-          <input type="file" name="query">
-          <input type="submit">
+          <div class="fileUpload upload-btn">
+              <div>Upload</div>
+              <input type="file" name="query" class="upload" />
+          </div>
+          <input type="submit" class="submit-btn">
         </form>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-offset-5">
-        <p>©2014 <a href="http://codeforamerica.org">Code for America</a></p>
+
+        <footer>
+          <p>Created by <a href="http://codeforamerica.org/">Code for America</a> and <a href="http://www.lexingtonky.gov/index.aspx">Lexington-Fayette Urban County Government</a></p>
+          <img src="/static/images/footer-logos.png" width="200" alt="City and County Seals">
+        </footer>
       </div>
     </div>
   </div>
 
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script src="//api.tiles.mapbox.com/mapbox.js/v2.0.1/mapbox.js"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/typeahead.bundle.js') }}"></script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/map.js') }}"></script>
+  <script type="text/javascript" src="/static/js/typeahead.bundle.js"></script>
+  <script type="text/javascript" src="/static/js/map.js"></script>
   <script type="text/javascript">
 $(function() {
   var map = MapBuilder.init('map');
