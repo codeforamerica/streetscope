@@ -1,11 +1,26 @@
-/*Bootstrap modifications*/
+body,h1,h2,h3,h4,h5 {
+  font-family: "omnes-pro", "open sans", Helvetica, sans-serif ;
+  color: #404040;
+}
+
+h1,h2,h3,h4,h5 {
+  font-weight: 500;
+}
+
+p {
+  font-weight: 300;
+}
+
+strong {
+  font-weight: 500;
+  font-size: 1.5em;
+}
+
 .form-control {
   height: 50px;
   font-size: 1.5em;
   margin-bottom: 20px;
 }
-
-/*Custom styles*/
 
 .twitter-typeahead {
   width: 100%;
@@ -16,14 +31,13 @@
   top: 0;
   left: 0;
   bottom: 0;
-  width: 40%;
-
-#logo {
-  padding-bottom: 50px;
+  width: inherit;
 }
 
-#intro {
-  margin-top: 60px;
+#logo {
+  display: inline-block;
+  padding-top: 50px;
+  padding-bottom: 30px;
 }
 
 #intro h1 {
@@ -32,33 +46,164 @@
 }
 
 #intro p {
-  font-size: 1.6em;
-  font-weight: 200;
+  font-size: 1.2em;
   margin-bottom: 30px;
 }
 
-#about-wrapper {
-  margin-top: 20px;
+#intro .link a, footer a, #who a {
+  font-weight: 500;
+  color: #27AF84;
 }
 
-#about-wrapper h1 {
-  margin-top: 30px;
+form {
   margin-bottom: 50px;
 }
 
-#about-wrapper section {
-  margin-bottom: 30px;
-  margin-top: 20px;
+.submit-btn, .upload-btn {
+  text-transform: lowercase;
+  color: #fff;
+  background-color: #3ca0d3;
+  border: 5px solid #3ca0d3;
+  text-align: center;
+  border-radius: 10px;
+  padding: 7px;
+  font-size: 1.5em;
+  width: 250px;
+  display: inline-block;
+  font-weight: 500;
 }
 
-#about-wrapper section img {
-  margin-bottom: 20px;
-  border: 1px solid #dedede;
-  box-shadow: 5px 5px 5px #b6b6b6;
+.submit-btn:hover{
+  background-color: #fff;
+  border: 5px solid #3ca0d3;
+  color: #3ca0d3;
+  font-weight: 600;
+}
+
+.submit-btn {
+  margin-top: 4px;
+  display: block;
+}
+
+.upload-btn {
+  cursor: pointer;
+  background-color: #27AF84;
+  border: 5px solid #27AF84;
+}
+
+.upload-btn:hover{
+  background-color: #fff;
+  border: 5px solid #27AF84;
+  color: #27AF84;
+  font-weight: 600;
+}
+
+.fileUpload {
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.fileUpload input.upload {
+  width: 200px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
 }
 
 footer {
-  margin-top: 40px;
-  padding: 30px 0;
+  padding: 40px 0;
   border-top: 2px solid #dedede;
+}
+
+/*About Page*/
+#about-wrapper {
+  font-size: 1.3em;
+}
+
+#about-wrapper .container {
+  max-width: 1000px;
+}
+
+#about-wrapper h2 {
+  text-transform: uppercase;
+  font-size: 1.6em;
+}
+
+#about-wrapper section {
+  padding-top: 50px;
+}
+
+#navigation #logo {
+  padding: 0;
+}
+
+#navigation, #what {
+  color: #fff;
+  background-color: #27AF84;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+#navigation a {
+  padding-left: 15px;
+  line-height: 2.5em;
+  color: #fff;
+}
+
+#navigation img {
+  padding-bottom: 3px;
+  padding-right: 2px;
+}
+
+#what, #how, #who {
+  padding-bottom: 60px;
+}
+
+#what p {
+  font-size: 1.1em;
+}
+
+#what h2 {
+  color: #fff;
+}
+
+#what .description {
+  padding-left: 10px;
+}
+
+#why, #how {
+  background-color: #EDF6F2;
+}
+
+#why img, #why p {
+  padding-top: 15px;
+}
+
+#how h2, #who h2 {
+  padding-bottom: 15px;
+}
+
+#how img {
+  border: 1px solid #CCD4D0;
+}
+
+/*media queries*/
+
+@media (max-width: 768px) {
+
+  #map {
+    position: absolute;
+    height: 300px;
+  }
+
+  #content-container {
+    margin-top: 300px;
+  }
 }
