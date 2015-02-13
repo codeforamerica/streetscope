@@ -9,9 +9,9 @@ if os.environ.get('BONSAI_URL'):
   url = urlparse(os.environ['BONSAI_URL'])
   ELASTICSEARCH_HOST = url.hostname
   ELASTICSEARCH_AUTH = url.username + ':' + url.password
-  es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
+  es = Elasticsearch([{'host': ELASTICSEARCH_HOST}])
 else:
-  es = Elasticsearch()
+  es = Elasticsearch(os.environ.get('ELASTICSEARCH_PORT'))
 
 files_given = sys.argv
 for file_name in files_given:
@@ -34,6 +34,7 @@ for file_name in files_given:
         address = row
         if current_row % 1000 == 0:
           print "%s addresses indexed" % current_row
-        es.index(index='addresses', doc_type='address', id=current_row-1, body={'NUMBER': address[' NUMBER'], 'STREET': address[' STREET'], 'ADDRESS': address[' NUMBER'] + ' ' + address[' STREET'], 'X': address['LON'], 'Y': address[' LAT']})
+        if re.match('\d+', address['PVANUM']):
+          es.index(index='addresses', doc_type='address', id=address['PVANUM'], body={'PVANUM': address['PVANUM'], 'NUM1': address['NUM1'], 'NAME': address['NAME'], 'TYPE': address['TYPE'], 'ADDRESS': address['ADDRESS'], 'UNIT': address['UNIT'], 'X': address['X'], 'Y': address['Y']})
 
     csvfile.close()

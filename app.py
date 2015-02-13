@@ -30,7 +30,7 @@ if os.environ.get('BONSAI_URL'):
   ELASTICSEARCH_AUTH = url.username + ':' + url.password
   es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
 else:
-  es = Elasticsearch()
+  es = Elasticsearch(os.environ.get('ELASTICSEARCH_PORT'))
 
 app = Flask(__name__)
 
@@ -71,6 +71,7 @@ def search_for(query):
 
   if address['well_formed']:
     results = es.search(index="addresses", body={"query": {"query_string": {"default_field": "ADDRESS", "query": query.replace("/", " ")}}})
+
     if results['hits']['total'] != 0:
       hit = results['hits']['hits'][0]
       returned = hit['_source']['ADDRESS']
@@ -101,7 +102,8 @@ def format_parcel(match):
       ]
     },
     "properties": {
-      "formatted_address": match['ADDRESS']
+      "formatted_address": match['ADDRESS'],
+      "parcel_id": match['PVANUM']
     }
   }
 

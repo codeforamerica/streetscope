@@ -45,12 +45,21 @@ $ cp sample.env .env
 # create elasticsearch index on local elasticsearch instance
 
 $ curl -XPUT "localhost:9200/addresses/"
+
+## or using fig
+
+$ fig run web bash -c curl -XPUT "elasticsearch:9200/addresses/"
 ```
 
 Note where the proccess OpenAddresses CSV lives on your computer. **KEEP IN MIND** that the OpenAddresses schema does not include city, county, or state names so the results for `123 main street` are implicitly within the indexed area.
 
 ```
 $ python index_addresses.py path/to/open-addresses-csv.csv
+
+## or using fig
+
+$ fig run web python index_addresses.py data/ParcelCenters-head.cs
+
 $ ... takes a few minutes
 
 # start the flask app
