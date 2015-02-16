@@ -3,6 +3,8 @@ import csv
 import json
 import os
 from urlparse import urlparse
+import logging, sys
+logging.basicConfig(stream=sys.stderr)
 
 from flask import Flask, render_template, jsonify, request, Response
 from elasticsearch import Elasticsearch
@@ -43,11 +45,11 @@ def about():
   return render_template('about.html')
 
 def address_parts(address):
-  address_parts = []
+  parts = {}
   for part in usaddress.parse(address):
-    address_parts.append(part[1])
+    parts.update({part[1]: part[0]})
 
-  return address_parts
+  return parts
 
 def address_well_formed(address=''):
   parts = address_parts(address)
@@ -55,7 +57,7 @@ def address_well_formed(address=''):
 
   return {
     'address': address,
-    'address_parts': address_parts,
+    'parts': parts,
     'well_formed': well_formed
   }
 
@@ -68,9 +70,10 @@ def record_geocode_request(query, returned, es_score, es_lat, es_long):
 def search_for(query):
   address = address_well_formed(query)
   address['results'] = False
+  parts = address['parts']
 
   if address['well_formed']:
-    results = es.search(index="addresses", body={"query": {"query_string": {"default_field": "ADDRESS", "query": query.replace("/", " ")}}})
+    results = es.search(index="addresses", body={ "query": { "bool": { "must": [{"fuzzy": {"ADDRESS": {"fuzziness": "AUTO", "value": parts['StreetName']}}}, {"term": {"NUM1": parts['AddressNumber']}}], "should": [ { "fuzzy": { "TYPE": { "value": parts.get('StreetNamePostType', ''), "fuzziness": "AUTO" } } }] } } })
 
     if results['hits']['total'] != 0:
       hit = results['hits']['hits'][0]
