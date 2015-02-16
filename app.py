@@ -71,9 +71,10 @@ def search_for(query):
   address = address_well_formed(query)
   address['results'] = False
   parts = address['parts']
+  print(parts)
 
   if address['well_formed']:
-    results = es.search(index="addresses", body={ "query": { "bool": { "must": [{"fuzzy": {"ADDRESS": {"fuzziness": "AUTO", "value": parts['StreetName']}}}, {"term": {"NUM1": parts['AddressNumber']}}], "should": [ { "fuzzy": { "TYPE": { "value": parts.get('StreetNamePostType', ''), "fuzziness": "AUTO" } } }] } } })
+    results = es.search(index="addresses", body={"query": {"query_string": {"default_field": "ADDRESS", "query": query.replace("/", " ")}}})
 
     if results['hits']['total'] != 0:
       hit = results['hits']['hits'][0]
