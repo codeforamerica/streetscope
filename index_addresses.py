@@ -9,7 +9,7 @@ if os.environ.get('BONSAI_URL'):
   url = urlparse(os.environ['BONSAI_URL'])
   ELASTICSEARCH_HOST = url.hostname
   ELASTICSEARCH_AUTH = url.username + ':' + url.password
-  es = Elasticsearch([{'host': ELASTICSEARCH_HOST}])
+  es = Elasticsearch([{'host': ELASTICSEARCH_HOST}], http_auth=ELASTICSEARCH_AUTH)
 else:
   es = Elasticsearch(os.environ.get('ELASTICSEARCH_PORT'))
 
